@@ -1,7 +1,7 @@
 {
-  "name": "reactapppic",
+  "name": "react-app-webpack",
   "version": "1.0.0",
-  "description": "picture app ",
+  "description": "webpack react app ",
   "main": "index.ts",
   "scripts": {
     "start": "gulp dev",
@@ -10,7 +10,7 @@
   "keywords": [
     "react",
     "app",
-    "picture"
+    "webpack"
   ],
   "author": "lidasong",
   "license": "ISC",
