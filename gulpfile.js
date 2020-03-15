@@ -32,26 +32,27 @@ gulp.task('dev', () => {
     const compiler = webpack(getConfig())
     clearConsole()
     start(compiler)
-    gulp.watch(["src/**/*"], {
-        delay: 3000
-    }, (done) => {
-        console.log(chalk.bgYellowBright("重新编译中..."))
-        compiler.run((err, stat) => {
-            if (err) {
-                console.log(chalk.bgRedBright("编译出错"))
-            } else {
-                console.log(chalk.bgGreenBright("编译完成"))
-            }
-            clearConsole()
-            done();
-        })
-    });
+    // gulp.watch(["src/**/*"], {
+    //     delay: 3000
+    // }, (done) => {
+    //     console.log(chalk.bgYellowBright("重新编译中..."))
+    //     compiler.run((err, stat) => {
+    //         if (err) {
+    //             console.log(chalk.bgRedBright("编译出错"))
+    //             throw err
+    //         } else {
+    //             console.log(chalk.bgGreenBright("编译完成"))
+    //         }
+    //         clearConsole()
+    //         done();
+    //     })
+    // });
 })
 
 
 gulp.task('build', () => {
     rimraf.sync('dist', ['rmdir'])
-    const compiler = webpack(getConfig(), (err) => {
+    webpack(getConfig(), (err) => {
         if (err) {
             console.log(chalk.bgCyan('webpack 编译出错'))
         }
