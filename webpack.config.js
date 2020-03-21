@@ -3,17 +3,23 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = function getConfig() {
+module.exports = function getConfig(port = 8000) {
   const { NODE_ENV } = process.env;
   const isDev = NODE_ENV === 'development';
   return {
     mode: NODE_ENV,
     entry: {
       main: './index.ts',
+      hmr: [
+        // Include the client code. Note host/post.
+        `webpack-dev-server/client?http://localhost:${port}`,
+        // Hot reload only when compiled successfully
+        'webpack/hot/only-dev-server',
+      ],
     },
     output: {
-      filename: '[name].[chunkhash].js',
-      chunkFilename: '[name].[chunkhash].js',
+      filename: '[name].[hash].js',
+      chunkFilename: '[name].[hash].js',
       path: path.resolve(__dirname, 'dist'),
     },
     devtool: isDev ? 'inline-source-map' : '',
@@ -44,14 +50,16 @@ module.exports = function getConfig() {
       }, {
         test: /\.tsx?$|\.jsx?$/,
         exclude: /node_modules/,
-        use: [{
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-          },
-        }, {
-          loader: 'ts-loader',
-        }],
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+              plugins: ['react-hot-loader/babel'],
+            },
+          }, {
+            loader: 'ts-loader',
+          }],
       }],
     },
     plugins: [

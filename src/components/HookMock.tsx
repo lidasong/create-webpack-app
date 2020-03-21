@@ -9,5 +9,5 @@ function useHookMock(initial) {
 
 export default () => {
   const [init, setInit] = useHookMock(3)
-  return <div onClick={() => setInit(init+1)}>{init}</div>
+  return <div onClick={() => setInit(init+1)}>click by add {init}</div>
 }

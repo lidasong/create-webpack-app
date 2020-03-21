@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from './index.module.scss';
 import HookMock from '../HookMock'
+import { hot } from 'react-hot-loader';
 
-export default class App extends React.Component<any, any> {
+export default hot(module)(class App extends React.Component<any, any> {
   state = {
     count: 1,
   }
@@ -23,8 +24,10 @@ export default class App extends React.Component<any, any> {
         </h2>
         <p>`npm install`</p>
         <p>`npm start`</p>
-        <HookMock />
+        <h2>
+          Custom Hook: <HookMock />
+        </h2>
       </div>
     );
   }
-}
+})
